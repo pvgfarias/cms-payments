@@ -1,0 +1,7 @@
+/data
+/openpayments.duckdb.tmp
+/.tmp 
+openpayments.duckdb
+tableau/*.csv
+*.duckdb
+*.duckdb.wal
