@@ -15,3 +15,17 @@ SELECT gptab.company_id, dim.company,
   GROUP BY gptab.company_id, dim.company
   ORDER BY usd_millions DESC
   LIMIT 10 ;
+
+
+-- Q2. Which medical specialties received the most money from companies in 2025?
+-- Is that because each doctor receive a lot on average or because the specialty has many doctors
+SELECT COALESCE(specialty, 'Unknown') as specialty, 
+  round(SUM(total_usd) / 1e6, 1) AS usd_millions, 
+  COUNT(recipient_id) as physicians, 
+  ROUND(SUM(total_usd)/COUNT(recipient_id), 0) as usd_per_physician, 
+  round(SUM(total_usd)/(SELECT SUM(total_usd) FROM physician_year WHERE program_year = 2025) *100, 1) as percentage 
+  FROM physician_year 
+  WHERE program_year = 2025 
+  GROUP BY COALESCE(specialty, 'Unknown')
+  ORDER BY usd_millions DESC
+  LIMIT 15;
