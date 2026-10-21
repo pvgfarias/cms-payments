@@ -22,14 +22,28 @@ ORDER BY company_total DESC
 LIMIT 10; 
 
 -- Q2. Which medical specialties received the most money from companies in 2025?
--- Is that because each doctor receive a lot on average or because the specialty has many doctors
-SELECT COALESCE(specialty, 'Unknown') as specialty, 
-  round(SUM(total_usd) / 1e6, 1) AS usd_millions, 
-  COUNT(recipient_id) as physicians, 
-  ROUND(SUM(total_usd)/COUNT(recipient_id), 0) as usd_per_physician, 
-  round(SUM(total_usd)/(SELECT SUM(total_usd) FROM physician_year WHERE program_year = 2025) *100, 1) as percentage 
-  FROM physician_year 
+-- Is that because each doctor receives a lot on average or because the specialty has many doctors?
+-- Orthopaedic surgeons received $23,569 each on average, nearly 5x internal medicine.
+-- Internal medicine is the largest total because it has the most doctors (154k), not because each gets a lot.
+-- Internal medicine and orthopaedic surgery together received 51% of all payments to physicians.
+WITH specialty_totals AS (
+  SELECT COALESCE(specialty, 'Unknown') AS specialty, 
+    SUM(total_usd) AS specialty_total, 
+    COUNT(recipient_id) AS physicians
+  FROM physician_year
   WHERE program_year = 2025 
   GROUP BY COALESCE(specialty, 'Unknown')
-  ORDER BY usd_millions DESC
-  LIMIT 15;
+),
+grand_total AS (
+  SELECT SUM(specialty_total) AS total FROM specialty_totals 
+)
+
+SELECT specialty,
+  ROUND(specialty_total/1e6, 1) AS usd_millions,
+  physicians, 
+  ROUND(specialty_total/physicians, 0) AS usd_per_physician, 
+  ROUND((specialty_total/total)*100, 1) AS pct_of_total
+FROM specialty_totals 
+CROSS JOIN grand_total
+ORDER BY specialty_total DESC
+LIMIT 15;
