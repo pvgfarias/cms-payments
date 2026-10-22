@@ -47,3 +47,32 @@ FROM specialty_totals
 CROSS JOIN grand_total
 ORDER BY specialty_total DESC
 LIMIT 15;
+
+
+-- Q3. What share of all money paid to physicians in 2025 went to the top 1% of doctors?
+
+WITH cutoff AS (
+  SELECT quantile_cont(total_usd, 0.99) AS cut
+  FROM physician_year 
+  WHERE program_year = 2025
+), 
+grand_total AS (
+  SELECT SUM(total_usd) AS total, COUNT(recipient_id) AS all_doctors
+  FROM physician_year 
+  WHERE program_year = 2025
+),
+top_1_pct AS (
+  SELECT COUNT(recipient_id) AS physicians, SUM(total_usd) AS physician_total
+  FROM physician_year 
+  CROSS JOIN cutoff 
+  WHERE total_usd >= cut AND
+  program_year = 2025
+)
+
+SELECT ROUND(c.cut, 0) AS cutoff_usd, 
+       t.physicians AS physicians_in_top_1, 
+       ROUND(t.physician_total/gt.total * 100, 1) AS pct_of_total,
+       gt.all_doctors
+FROM cutoff AS c
+CROSS JOIN grand_total AS gt
+CROSS JOIN top_1_pct AS t;
