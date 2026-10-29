@@ -50,7 +50,7 @@ LIMIT 15;
 
 
 -- Q3. What share of all money paid to physicians in 2025 went to the top 1% of doctors?
-
+-- The top 1% of physicians (6,668 doctors, each receiving $66,326 or more) received 64.8% of all payments in 2025
 WITH cutoff AS (
   SELECT quantile_cont(total_usd, 0.99) AS cut
   FROM physician_year 
