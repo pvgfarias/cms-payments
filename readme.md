@@ -13,7 +13,7 @@ from drug and device companies to U.S. physicians, using SQL (DuckDB).
 3. **Device makers dominate the top payers.** The top 10 companies paid **33.5%**
    of the total, and 8 of the 10 are medical device makers, not drug companies.
 
-Dashboard: [Tableau Public](LINK-HERE)
+Dashboard: [Tableau Public](https://public.tableau.com/app/profile/paulo.farias3395/viz/CMS-Payments/Analysis)
 
 ## Questions answered
 
