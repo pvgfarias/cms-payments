@@ -12,6 +12,9 @@ from drug and device companies to U.S. physicians, using SQL (DuckDB).
    Internal medicine and orthopaedic surgery together received 51% of all payments.
 3. **Device makers dominate the top payers.** The top 10 companies paid **33.5%**
    of the total, and 8 of the 10 are medical device makers, not drug companies.
+4. **Most payments are meals, but most money is royalties and fees.** Meals are
+   88.8% of all payments but only 11.2% of the money. The top 1% of physicians
+   received **96%** of all royalty money and 99% of acquisition payments.
 
 Dashboard: [Tableau Public](https://public.tableau.com/app/profile/paulo.farias3395/viz/CMS-Payments/Analysis)
 
@@ -22,6 +25,7 @@ All queries are in `02_analysis.sql`:
 - Q1. Which 10 companies paid physicians the most in 2025?
 - Q2. Which specialties received the most, and is it because of many doctors or high payments per doctor?
 - Q3. What share of all payments went to the top 1% of doctors?
+- Q4. What kinds of payments make up the money, for all physicians and for the top 1%?
 
 ## Data
 
