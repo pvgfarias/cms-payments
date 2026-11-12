@@ -75,3 +75,11 @@ COPY (
   UNION ALL
   SELECT 'Other 99%', ROUND(100 - pct, 1) FROM share
 ) TO 'q3_concentration.csv' (HEADER);
+
+   -- Detail file for Excel and Power BI: payments by state, specialty and type
+   COPY (
+     SELECT state, specialty, nature, COUNT(*) AS payments, SUM(amount) AS usd
+     FROM gp
+     WHERE program_year = 2025 AND recipient_type = 'Covered Recipient Physician'
+     GROUP BY ALL
+   ) TO 'excel_practice.csv' (HEADER);

@@ -1,7 +1,7 @@
 # Who gets paid by the medical industry?
 
 An analysis of 2025 CMS Open Payments data: $2.6 billion in general payments
-from drug and device companies to U.S. physicians, using SQL (DuckDB).
+from drug and device companies to U.S. physicians, using SQL (DuckDB), Excel, Tableau and Power BI.
 
 ## Key findings
 
@@ -17,6 +17,19 @@ from drug and device companies to U.S. physicians, using SQL (DuckDB).
    received **96%** of all royalty money and 99% of acquisition payments.
 
 Dashboard: [Tableau Public](https://public.tableau.com/app/profile/paulo.farias3395/viz/CMS-Payments/Analysis)
+
+## Power BI dashboard
+
+An interactive version in Power BI (`cms_payments.pbix`), with slicers for
+state and specialty and DAX measures for totals, averages and share of total.
+
+![Power BI dashboard, all physicians](images/powerbi_overview.png)
+
+Filtered to orthopaedic surgeons in California, royalties are **61.6%** of the
+money (vs 19.4% nationally), and the average payment is $1,650, over 6x the
+national average.
+
+![Power BI dashboard filtered to California orthopaedic surgeons](images/powerbi_ca_ortho.png)
 
 ## Questions answered
 
@@ -40,10 +53,9 @@ All queries are in `02_analysis.sql`:
 1. Download the General Payments CSVs for 2024 and 2025 into `data/`.
 2. `duckdb openpayments.duckdb < 01_load.sql` loads and cleans the data.
 3. Inside DuckDB, `.read 02_analysis.sql` runs the analysis,
-   and `.read 03_exports.sql` exports the results to CSV for Tableau.
+   and `.read 03_exports.sql` exports the results to CSV for Tableau, Excel and Power BI.
 
 ## Next steps
 
-- What types of payments (royalties, consulting, meals) drive the concentration?
 - How did payments change between 2024 and 2025? Payments to teaching hospitals
   rose from $0.68B to $1.03B (+50%), while payments to physicians grew about 5%.
