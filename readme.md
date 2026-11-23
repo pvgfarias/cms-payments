@@ -3,6 +3,8 @@
 An analysis of 2025 CMS Open Payments data: $2.6 billion in general payments
 from drug and device companies to U.S. physicians, using SQL (DuckDB), Excel, Tableau and Power BI.
 
+🇧🇷 Resumo: análise de mais de 30 milhões de pagamentos da indústria farmacêutica e de dispositivos médicos a médicos nos EUA (CMS Open Payments), em SQL (DuckDB), com dashboards em Tableau e Power BI. Principais resultados: o 1% de médicos que mais recebeu concentrou 64,8% do valor pago em 2025, e refeições foram 88,8% dos pagamentos, mas só 11,2% do valor.
+
 ## Key findings
 
 1. **Payments are highly concentrated.** The top 1% of physicians (6,668 doctors,
